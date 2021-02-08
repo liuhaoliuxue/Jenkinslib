@@ -1,6 +1,6 @@
 #!groovy
 //引用Library库
-@Library('jenkinslib') _  
+@Library('jenkinslib@master') _  
 
 def build = new org.devops.build()
 String buildType = "${env.buildType}" //引用参数
