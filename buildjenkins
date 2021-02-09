@@ -7,7 +7,7 @@ def deploy = new org.devops.deploy()
 String buildType = "${env.buildType}" //引用参数
 String buildShell = "${env.buildShell}" //引用参数
 String deployHost = "${env.deployHost}" //引用参数
-String deployShellt = "${env.deployShellt}" //引用参数
+String deployShell = "${env.deployShell}" //引用参数
 
 
 pipeline {
@@ -21,7 +21,7 @@ pipeline {
 		    steps {
 			    script {
 				    build.Build(buildType,buildShell)
-				    deploy.AnsibleDeploy("${deployHost}","-m ${deployShellt}")
+				    deploy.AnsibleDeploy("${deployHost}","-m ${deployShell}")
 				}
 			}
 		}
