@@ -3,8 +3,12 @@
 @Library('jenkinslib@master') _  
 
 def build = new org.devops.build()
+def deploy = new org.devops.deploy()
 String buildType = "${env.buildType}" //引用参数
 String buildShell = "${env.buildShell}" //引用参数
+String deployHost = "${env.deployHost}" //引用参数
+String deployShellt = "${env.deployShellt}" //引用参数
+
 
 pipeline {
     agent { 
@@ -17,6 +21,7 @@ pipeline {
 		    steps {
 			    script {
 				    build.Build(buildType,buildShell)
+				    deploy.AnsibleDeploy("${deployHost}","-m ${deployShellt}")
 				}
 			}
 		}
