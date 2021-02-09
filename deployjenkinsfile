@@ -1,0 +1,34 @@
+#!groovy
+//引用Library库
+@Library('jenkinslib@master') _  
+
+//引用构建共享库
+def build = new org.devops.build()
+//引入发布共享库
+def deploytest = new org.devops.deploytest()
+//引入参数
+String buildType = "${env.buildType}" //引用参数
+String buildShell = "${env.buildShell}" //引用参数
+String deployHost = "${env.deployHost}" //引用参数
+String deployShell = "${env.deployShell}" //引用参数
+
+
+pipeline {
+    agent { 
+	    node {
+		    label "master" //构建主机
+		}
+	}
+	stages {
+	    stage("Build") {
+		    steps {
+			    script {
+				    //引入构建共享库内函数
+				    build.Build(buildType,buildShell)
+				    //引用发布共享库内函数
+				    deploytest.AnsibleDeploy("${deployHost}","-m ${deployShell}")
+				}
+			}
+		}
+	}
+}
